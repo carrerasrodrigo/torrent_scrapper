@@ -9,10 +9,11 @@ class TorrentzWrapper(BaseWrapper):
     
     def __init__(self, *args, **kargs):
         self.__wrappers = [ ("www.torrenthound.com", TorrentthoundWrapper),
-                            ("www.kickasstorrents.com", KickasstorrentsWrapper),
+                            #("www.kickasstorrents.com", KickasstorrentsWrapper),
                             ("www.vertor.com", VertorWrapper)
             ]
-        super().__init__()
+        self.__kargs = kargs
+        super().__init__(*args, **kargs)
         
     def download_torrent(self, torrentEntry):
         soup = self.browser.get_soup(torrentEntry.url)
@@ -26,7 +27,7 @@ class TorrentzWrapper(BaseWrapper):
                         url=entry.find("a")["href"],
                         fileName=torrentEntry.fileName
                     )
-                    w[1]().download_torrent(newTorrentEntry)
+                    w[1](**self.__kargs).download_torrent(newTorrentEntry)
                     return True
         
         return False

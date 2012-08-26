@@ -1,4 +1,4 @@
-import hashlib
+import hashlib, os
 
 from torrent_scrapper.Browser import Browser
 
@@ -34,7 +34,8 @@ class BaseWrapper(object):
         raise NotImplementedError("Should have implemented this")
     
     def save_torrent(self, name, torrent):
-        with open(name, "wb") as f:
+        pathToSave = os.path.join(self.__pathTorrent, name)
+        with open(pathToSave, "wb") as f:
             f.write(torrent)
             
     def download_torrent(self, torrentEntry):

@@ -1,10 +1,10 @@
-import sys, getopt
+import sys, getopt, os
 
 from torrent_scrapper.wrappers.TorrentzWrapper import TorrentzWrapper
 
 class Downloader:
-    def __init__(self):
-        self.__wrappers = [TorrentzWrapper()]
+    def __init__(self, *args, **kargs):
+        self.__wrappers = [TorrentzWrapper(path=kargs.get("torrentPath"))]
     
     def __print_torrents(self, torrents):
         i = 0
@@ -44,7 +44,7 @@ class Downloader:
         
     
 def main(*argv):
-    opts, args = getopt.getopt(argv, "h:k:", ["help", "keyword="])        
+    opts, args = getopt.getopt(argv, "h:k:p:", ["help", "keyword=", "path"])        
     
     helpLine = """
         -h --help : Print the Help
@@ -53,14 +53,18 @@ def main(*argv):
         -p --path : the path of the torrent
     """
     keyword = ""
+    path = os.path.abspath(".")
+    
     for opt in opts:
         if opt[0] in ["--help", "-h"]:
             print(helpLine)
             sys.exit()
         elif opt[0] in ["--keyword", "-k"]:
             keyword = opt[1]
+        elif opt[0] in ["--path", "-p"]:
+            path = opt[1]
             
-    Downloader().search(keyword)
+    Downloader(torrentPath=path).search(keyword)
     
 #if __file__ == "main.py":
 #    main(sys.argv[1:])

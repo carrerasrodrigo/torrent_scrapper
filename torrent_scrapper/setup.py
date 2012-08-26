@@ -26,7 +26,7 @@ setup(name='torrent_scrapper',
       packages=find_packages(),
       include_package_data=True,
       zip_safe=False,
-      test_suite='rv',
+      #test_suite='rv',
       install_requires = requires,
       entry_points = """\
       [console_scripts]
