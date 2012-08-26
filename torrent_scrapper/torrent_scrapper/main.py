@@ -1,6 +1,6 @@
 import sys, getopt
 
-from wrappers.TorrentzWrapper import TorrentzWrapper
+from torrent_scrapper.wrappers.TorrentzWrapper import TorrentzWrapper
 
 class Downloader:
     def __init__(self):
@@ -43,13 +43,14 @@ class Downloader:
         
         
     
-def main(argv):
+def main(*argv):
     opts, args = getopt.getopt(argv, "h:k:", ["help", "keyword="])        
     
     helpLine = """
         -h --help : Print the Help
-        -k --keyword : The keyword that we want to use to search in the differents engines
-        
+        -k --keyword : Required. The keyword that we want to use to search in the differents engines
+        -n --name : The name of the torrent
+        -p --path : the path of the torrent
     """
     keyword = ""
     for opt in opts:
@@ -61,5 +62,5 @@ def main(argv):
             
     Downloader().search(keyword)
     
-if __file__ == "main.py":
-    main(sys.argv[1:])
+#if __file__ == "main.py":
+#    main(sys.argv[1:])

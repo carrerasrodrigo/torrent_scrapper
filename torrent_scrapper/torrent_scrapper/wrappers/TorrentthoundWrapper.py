@@ -1,5 +1,5 @@
-from wrappers.BaseWrapper import BaseWrapper
-from TorrentEntry import TorrentEntry
+from torrent_scrapper.wrappers.BaseWrapper import BaseWrapper
+from torrent_scrapper.TorrentEntry import TorrentEntry
 
 class TorrentthoundWrapper(BaseWrapper):
     

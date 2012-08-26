@@ -1,0 +1,7 @@
+__pycache__
+build
+dist
+.komodotools
+torrent.komodoproject
+*.pyc
+torrent_scrapper.egg-info*

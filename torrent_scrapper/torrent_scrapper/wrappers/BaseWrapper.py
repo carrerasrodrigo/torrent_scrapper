@@ -1,11 +1,12 @@
 import hashlib
 
-from Browser import Browser
+from torrent_scrapper.Browser import Browser
 
 class BaseWrapper(object):
-    def __init__(self):
+    def __init__(self, *args, **kargs):
         self.browser = Browser()
         self.__torrents = {}
+        self.__pathTorrent = kargs.get("path", "")
     
     def get_name(self):
         raise NotImplementedError("Should have implemented this")

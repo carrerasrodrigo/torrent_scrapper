@@ -1,12 +1,17 @@
-from wrappers.BaseWrapper import BaseWrapper
-from wrappers.TorrentthoundWrapper import TorrentthoundWrapper
+from torrent_scrapper.wrappers.BaseWrapper import BaseWrapper
+from torrent_scrapper.wrappers.TorrentthoundWrapper import TorrentthoundWrapper
+from torrent_scrapper.wrappers.KickasstorrentsWrapper import KickasstorrentsWrapper
+from torrent_scrapper.wrappers.VertorWrapper import VertorWrapper
 
-from TorrentEntry import TorrentEntry
+from torrent_scrapper.TorrentEntry import TorrentEntry
 
 class TorrentzWrapper(BaseWrapper):
     
     def __init__(self, *args, **kargs):
-        self.__wrappers = [("www.torrenthound.com", TorrentthoundWrapper())]
+        self.__wrappers = [ ("www.torrenthound.com", TorrentthoundWrapper),
+                            ("www.kickasstorrents.com", KickasstorrentsWrapper),
+                            ("www.vertor.com", VertorWrapper)
+            ]
         super().__init__()
         
     def download_torrent(self, torrentEntry):
@@ -21,7 +26,7 @@ class TorrentzWrapper(BaseWrapper):
                         url=entry.find("a")["href"],
                         fileName=torrentEntry.fileName
                     )
-                    w[1].download_torrent(newTorrentEntry)
+                    w[1]().download_torrent(newTorrentEntry)
                     return True
         
         return False
