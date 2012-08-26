@@ -14,12 +14,12 @@ Requirements
 How To Install
 
 -> Install python 3.x (http://www.python.org/download/releases/)
--> Install Beautiful Soup 4 (pip install beautifulsoup4)
+-> python setup.py install
 
 ================
 Run the Script
 
-python main.py -k "die hard"
+download_torrent -k "die hard"
 
 
 ================
