@@ -1,29 +1,27 @@
 Torrent Scrapper
 ================
 
-This is an script that fetch and download .torrent files with the given keywords.
+This is an script that fetch and download .torrent files with the given name
 
 
 Requirements
 ============
 
--> python 3.x
--> beautifulsoup4
+python 3.x
+beautifulsoup4
 
 
 How To Install
 ==============
--> Install python 3.x (http://www.python.org/download/releases/)
--> python setup.py install
+git clone https://github.com/carrerasrodrigo/torrent_scrapper.git
+python setup.py install
+
+or via pip
+
+pip install -e https://github.com/carrerasrodrigo/torrent_scrapper.git#egg=torrent_scrapper
 
 
 Run the Script
 ==============
  $ download_torrent -k "die hard"
 
-
-================
-TODO:
--> Add new Wrappers.
-Now it's only working torrentz with torrenthound
--> Add option to choose the path of the .torrent file.

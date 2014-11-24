@@ -1,51 +1,53 @@
-import sys, getopt, os
+import sys
+import getopt
+import os
 
 from torrent_scrapper.wrappers.TorrentzWrapper import TorrentzWrapper
 
+
 class Downloader:
     def __init__(self, *args, **kargs):
-        self.__wrappers = [TorrentzWrapper(path=kargs.get("torrentPath"))]
-    
+        self.__wrappers = [TorrentzWrapper(path=kargs.get("torrent_path"))]
+
     def __print_torrents(self, torrents):
         i = 0
-        print ("Leechers:Peers\tid::Name")
+        print("ID\tLeechers\tPeers\tName")
         for t in torrents:
-            print ("{0}:{1}\t\t{2} :: {3}".format(t.leechers, t.peers, i, t.name))
+            print("{0}\t{1}\t\t{2}\t{3}".format(i, t.leechers, t.peers,
+                t.name))
             i += 1
-    
-    def __get_torrent_to_download(self, maxNumber):
+
+    def __get_torrent_to_download(self, max_number):
         val = -1
-        while val not in range(maxNumber+1):
+        while val not in range(max_number+1):
             val = input("Please enter the torrent that you want to download: ")
             try:
                 val = int(val)
             except:
                 pass
-        
         return val
-    
+
     def search(self, keyword):
         torrents = []
-        
+
         for w in self.__wrappers:
             w.get_links(keyword)
             torrents.extend([(w, t) for t in w.get_torrents(keyword)])
-            
+
         self.__print_torrents([t[1] for t in torrents])
-        
+
         ti = self.__get_torrent_to_download(len(torrents))
-        torrentToDownload = torrents[ti]
-        
-        print("--> Downloading ", torrentToDownload[1].name)
-        torrentToDownload[0].download_torrent(torrentToDownload[1])
-        
+        torrent_to_download = torrents[ti]
+
+        print("--> Downloading ", torrent_to_download[1].name)
+        torrent_to_download[0].download_torrent(torrent_to_download[1])
+
         print("--> End")
-        
-        
-    
+
+
 def main(*argv):
-    opts, args = getopt.getopt(argv, "h:k:p:", ["help", "keyword=", "path"])        
-    
+    opts, args = getopt.getopt(argv, "h:k:p:", ["help", "keyword=", "path"])
+
     helpLine = """
         -h --help : Print the Help
         -k --keyword : Required. The keyword that we want to use to search in the differents engines
@@ -54,7 +56,7 @@ def main(*argv):
     """
     keyword = ""
     path = os.path.abspath(".")
-    
+
     for opt in opts:
         if opt[0] in ["--help", "-h"]:
             print(helpLine)
@@ -63,8 +65,8 @@ def main(*argv):
             keyword = opt[1]
         elif opt[0] in ["--path", "-p"]:
             path = opt[1]
-            
-    Downloader(torrentPath=path).search(keyword)
-    
-#if __file__ == "main.py":
-#    main(sys.argv[1:])
+
+    Downloader(torrent_path=path).search(keyword)
+
+if __file__.endswith("main.py"):
+    main(*sys.argv[1:])

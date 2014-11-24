@@ -1,0 +1,7 @@
+0.1
+---
+-  Refactoring in the code. Solved error with some wrappers
+
+0.0
+---
+-  Initial version
