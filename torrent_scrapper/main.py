@@ -1,8 +1,12 @@
-import sys
 import getopt
 import os
+import sys
 
+import colorama
 from torrent_scrapper.wrappers.TorrentzWrapper import TorrentzWrapper
+
+
+colorama.init()
 
 
 class Downloader:
@@ -13,14 +17,17 @@ class Downloader:
         i = 0
         print("ID\tLeechers\tPeers\tName")
         for t in torrents:
-            print("{0}\t{1}\t\t{2}\t{3}".format(i, t.leechers, t.peers,
-                t.name))
+            print("{green_color}{number}\t"
+                "{leechers}\t\t{peers}\t{name}".format(
+                    number=i, leechers=t.leechers, peers=t.peers,
+                    name=t.name, green_color=colorama.Fore.GREEN))
             i += 1
 
     def __get_torrent_to_download(self, max_number):
         val = -1
         while val not in range(max_number+1):
-            val = input("Please enter the torrent that you want to download: ")
+            val = input(colorama.Fore.YELLOW +
+                "Please enter the torrent that you want to download: ")
             try:
                 val = int(val)
             except:

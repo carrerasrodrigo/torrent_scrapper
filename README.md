@@ -7,6 +7,7 @@ This is an script that fetch and download .torrent files with the given name
 
 * python 3.x
 * beautifulsoup4
+* colorama
 
 
 ##How To Install

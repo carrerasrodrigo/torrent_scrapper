@@ -45,8 +45,10 @@ class TorrentzWrapper(BaseWrapper):
                         entry.find("a")["href"]),
                     file_name="{0}.torrent".format(
                         entry.find("dt").get_text()),
-                    leechers=entry.find("span", {"class": "d"}).get_text(),
-                    peers=entry.find("span", {"class": "u"}).get_text()
+                    leechers=entry.find("span", {"class": "d"})
+                    .get_text().replace(',', ''),
+                    peers=entry.find("span", {"class": "u"})
+                    .get_text().replace(',', '')
                 )
             except:
                 # TODO: manage some errors

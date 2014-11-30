@@ -1,34 +1,31 @@
 import os
+from setuptools import setup
 
-from setuptools import setup, find_packages
+with open(os.path.join(os.path.dirname(__file__), 'README.md')) as readme:
+    README = readme.read()
 
-here = os.path.abspath(os.path.dirname(__file__))
-README = open(os.path.join(here, 'README.md')).read()
-CHANGES = open(os.path.join(here, 'CHANGES.txt')).read()
+# allow setup.py to be run from any path
+os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
 
-requires = [
-    'beautifulsoup4',
-]
-
-setup(name='torrent_scrapper',
-    version='0.1',
-    description='Torrent Scrapper',
-    long_description=README + '\n\n' + CHANGES,
+setup(
+    name='torrent-scrapper',
+    version='0.2',
+    packages=['torrent_scrapper'],
+    include_package_data=True,
+    license='BSD License',
+    description='',
+    long_description=README,
+    url='',
+    author='Rodrigo N. Carreras',
+    install_requires=['beautifulsoup4', 'colorama', 'requests'],
     classifiers=[
         "Topic :: Internet :: WWW/HTTP"
         "Topic :: Internet :: WWW/HTTP :: Indexing/Search"
         "Programming Language :: Python :: 3",
     ],
-    author='Rodrigo N. Carreras',
-    author_email='',
-    url='',
-    keywords='torrent search beautifulsoup',
-    packages=find_packages(),
-    include_package_data=True,
-    zip_safe=False,
-    install_requires=requires,
-    entry_points = """ \
-        [console_scripts]
-            download_torrent = torrent_scrapper.main:main
-    """,
+    entry_points={
+        'console_scripts': [
+            'download_torrent = torrent_scrapper.main:main'
+        ]
+    }
 )
