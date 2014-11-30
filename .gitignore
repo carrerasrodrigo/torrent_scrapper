@@ -5,3 +5,4 @@ dist
 torrent.komodoproject
 *.pyc
 torrent_scrapper.egg-info*
+*.torrent

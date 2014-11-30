@@ -14,7 +14,7 @@ class TorrentzWrapper(BaseWrapper):
             ("www.vertor.com", VertorWrapper)
         ]
         self.__kargs = kargs
-        super().__init__(*args, **kargs)
+        super(TorrentzWrapper, self).__init__(*args, **kargs)
 
     def download_torrent(self, torrent_entry):
         soup = self.browser.get_soup(torrent_entry.url)
@@ -34,16 +34,16 @@ class TorrentzWrapper(BaseWrapper):
 
     def get_links(self, keyword):
         soup = self.browser.get_soup("http://torrentz.eu/search",
-            dict(f=keyword))
+            dict(q=keyword))
 
         for entry in soup.find("div", {"class": "results"}).find_all("dl"):
             try:
                 te = TorrentEntry(
-                    page="torrentz",
+                    page=u"torrentz",
                     name=entry.find("dt").get_text(),
-                    url="http://torrentz.eu{0}".format(
+                    url=u"http://torrentz.eu{0}".format(
                         entry.find("a")["href"]),
-                    file_name="{0}.torrent".format(
+                    file_name=u"{0}.torrent".format(
                         entry.find("dt").get_text()),
                     leechers=entry.find("span", {"class": "d"})
                     .get_text().replace(',', ''),
@@ -52,5 +52,5 @@ class TorrentzWrapper(BaseWrapper):
                 )
             except:
                 # TODO: manage some errors
-                pass
+                raise
             self.add_torrent(keyword, te)

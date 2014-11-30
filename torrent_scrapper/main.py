@@ -15,9 +15,9 @@ class Downloader:
 
     def __print_torrents(self, torrents):
         i = 0
-        print("ID\tLeechers\tPeers\tName")
+        print(u"ID\tLeechers\tPeers\tName")
         for t in torrents:
-            print("{green_color}{number}\t"
+            print(u"{green_color}{number}\t"
                 "{leechers}\t\t{peers}\t{name}".format(
                     number=i, leechers=t.leechers, peers=t.peers,
                     name=t.name, green_color=colorama.Fore.GREEN))
@@ -46,14 +46,15 @@ class Downloader:
         ti = self.__get_torrent_to_download(len(torrents))
         torrent_to_download = torrents[ti]
 
-        print("--> Downloading ", torrent_to_download[1].name)
+        print(u"--> Downloading {0}".format(torrent_to_download[1].name))
         torrent_to_download[0].download_torrent(torrent_to_download[1])
 
-        print("--> End")
+        print(u"--> End")
 
 
 def main(*argv):
-    opts, args = getopt.getopt(argv, "h:k:p:", ["help", "keyword=", "path"])
+    opts, args = getopt.getopt(sys.argv[1:], "h:k:p:",
+        ["help", "keyword=", "path"])
 
     helpLine = """
         -h --help : Print the Help
@@ -72,7 +73,6 @@ def main(*argv):
             keyword = opt[1]
         elif opt[0] in ["--path", "-p"]:
             path = opt[1]
-
     Downloader(torrent_path=path).search(keyword)
 
 if __file__.endswith("main.py"):
